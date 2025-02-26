@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Trade Calculator",
+  "version": "1.0",
+  "description": "Calculator for trading position size, profit/loss and fees - Developed by AryamerX",
+  "author": "AryamerX",
+  "homepage_url": "https://aryamerx.com",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_width": 400,
+    "default_height": 1000
+  },
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

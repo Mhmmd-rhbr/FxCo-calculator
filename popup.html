@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trade Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <h1>Trade Calculator</h1>
+        <select id="language-selector" class="language-selector">
+          <option value="fa">فارسی</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div class="market-selector">
+        <label for="market-type">Market Type:</label>
+        <select id="market-type">
+          <option value="forex">Forex</option>
+          <option value="crypto">Cryptocurrency</option>
+          <option value="iranian-stock">Stocks</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="position-size">Position Size</button>
+      <button class="tab-btn" data-tab="converter">Currency Converter</button>
+      <button class="tab-btn" data-tab="profit-loss">Profit/Loss</button>
+      <button class="tab-btn" data-tab="fees">Fees</button>
+    </div>
+
+    <div class="tab-content">
+      <!-- Position Size Calculator -->
+      <div id="position-size" class="tab-pane active">
+        <h2>Position Size Calculator</h2>
+        <form id="position-size-form">
+          <div class="form-group">
+            <label for="account-balance">Account Balance:</label>
+            <div class="input-group">
+              <input type="number" id="account-balance" placeholder="10000">
+              <select id="account-currency">
+                <option value="IRR">IRR</option>
+                <option value="USDT">USDT</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="risk-percentage">Risk Percentage:</label>
+            <div class="input-group">
+              <input type="number" id="risk-percentage" placeholder="1" step="0.1">
+              <span class="input-addon">%</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="entry-price">Entry Price:</label>
+            <input type="number" id="entry-price" placeholder="100">
+          </div>
+
+          <div class="form-group">
+            <label for="stop-loss">Stop Loss:</label>
+            <input type="number" id="stop-loss" placeholder="95">
+          </div>
+
+          <button type="submit" class="calculate-btn">Calculate</button>
+        </form>
+
+        <div class="result" id="position-size-result">
+          <div class="result-item">
+            <span class="result-label">Risk Amount:</span>
+            <span class="result-value" id="risk-amount">0 IRR</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Position Size:</span>
+            <span class="result-value" id="position-size-value">0 units</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Currency Converter -->
+      <div id="converter" class="tab-pane">
+        <h2>Currency Converter</h2>
+        <form id="converter-form">
+          <div class="form-group">
+            <label for="from-amount">Amount:</label>
+            <input type="number" id="from-amount" placeholder="1000">
+          </div>
+
+          <div class="form-group">
+            <label for="from-currency">From:</label>
+            <select id="from-currency">
+              <option value="IRR">IRR</option>
+              <option value="USDT">USDT</option>
+              <option value="USD">USD</option>
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="to-currency">To:</label>
+            <select id="to-currency">
+              <option value="USDT">USDT</option>
+              <option value="IRR">IRR</option>
+              <option value="USD">USD</option>
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+            </select>
+          </div>
+
+          <button type="submit" class="calculate-btn">Convert</button>
+        </form>
+
+        <div class="result" id="converter-result">
+          <div class="result-item">
+            <span class="result-label">Result:</span>
+            <span class="result-value" id="converted-amount">0 USDT</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Exchange Rate:</span>
+            <span class="result-value" id="exchange-rate">1 IRR = 0 USDT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profit/Loss Calculator -->
+      <div id="profit-loss" class="tab-pane">
+        <h2>Profit/Loss Calculator</h2>
+        <form id="profit-loss-form">
+          <div class="form-group">
+            <label for="trade-type">Trade Type:</label>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="trade-type" value="buy" checked> Buy
+              </label>
+              <label>
+                <input type="radio" name="trade-type" value="sell"> Sell
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="entry-price-pl">Entry Price:</label>
+            <input type="number" id="entry-price-pl" placeholder="100">
+          </div>
+
+          <div class="form-group">
+            <label for="exit-price">Exit Price:</label>
+            <input type="number" id="exit-price" placeholder="110">
+          </div>
+
+          <div class="form-group">
+            <label for="position-size-pl">Position Size:</label>
+            <input type="number" id="position-size-pl" placeholder="1">
+          </div>
+
+          <div class="form-group">
+            <label for="fee-percentage">Fee Percentage:</label>
+            <div class="input-group">
+              <input type="number" id="fee-percentage" placeholder="0.1" step="0.01">
+              <span class="input-addon">%</span>
+            </div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calculate</button>
+        </form>
+
+        <div class="result" id="profit-loss-result">
+          <div class="result-item">
+            <span class="result-label">Profit/Loss:</span>
+            <span class="result-value" id="profit-loss-value">0 USDT</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Return on Investment:</span>
+            <span class="result-value" id="roi-value">0%</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Total Fees:</span>
+            <span class="result-value" id="total-fees">0 USDT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fees Calculator -->
+      <div id="fees" class="tab-pane">
+        <h2>Fees Calculator</h2>
+        <form id="fee-form">
+          <div class="form-group">
+            <label for="exchange-type">Exchange/Platform:</label>
+            <select id="exchange-type">
+              <option value="nobitex">Nobitex</option>
+              <option value="ramzinex">Ramzinex</option>
+              <option value="binance">Binance</option>
+              <option value="kucoin">KuCoin</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="custom-fee-group" style="display: none;">
+            <label for="custom-fee">Custom Fee (%):</label>
+            <div class="input-group">
+              <input type="number" id="custom-fee" placeholder="0.1" step="0.01">
+              <span class="input-addon">%</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="transaction-amount">Transaction Amount:</label>
+            <div class="input-group">
+              <input type="number" id="transaction-amount" placeholder="1000">
+              <select id="transaction-currency">
+                <option value="IRR">IRR</option>
+                <option value="USDT">USDT</option>
+                <option value="USD">USD</option>
+                <option value="BTC">BTC</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fee-type">Fee Type:</label>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" id="trading-fee" checked> Trading Fee
+              </label>
+              <label>
+                <input type="checkbox" id="withdrawal-fee"> Withdrawal Fee
+              </label>
+              <label>
+                <input type="checkbox" id="network-fee"> Network Fee
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="calculate-btn">Calculate</button>
+        </form>
+
+        <div class="result" id="fee-result">
+          <div class="result-item">
+            <span class="result-label">Trading Fee:</span>
+            <span class="result-value" id="trading-fee-value">0 USDT</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Withdrawal Fee:</span>
+            <span class="result-value" id="withdrawal-fee-value">0 USDT</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Network Fee:</span>
+            <span class="result-value" id="network-fee-value">0 USDT</span>
+          </div>
+          <div class="result-item total">
+            <span class="result-label">Total Fees:</span>
+            <span class="result-value" id="total-fee-value">0 USDT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <button id="settings-btn">Settings</button>
+      <div class="footer-info">
+        <div class="version">v1.0</div>
+        <div class="copyright">
+          <span>Developed by</span>
+          <a href="https://aryamerx.com" target="_blank">AryamerX</a>
+          <span>©</span>
+          <span id="year">2024</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="settings-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Settings</h2>
+        <div class="modal-actions">
+          <button type="submit" form="settings-form" class="save-btn">Save Settings</button>
+          <span class="close">&times;</span>
+        </div>
+      </div>
+      <form id="settings-form">
+        <div class="form-group">
+          <label for="default-currency">Default Currency:</label>
+          <select id="default-currency">
+            <option value="IRR">IRR</option>
+            <option value="USDT">USDT</option>
+            <option value="USD">USD</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label for="default-exchange">Default Exchange:</label>
+          <select id="default-exchange">
+            <option value="nobitex">Nobitex</option>
+            <option value="ramzinex">Ramzinex</option>
+            <option value="binance">Binance</option>
+            <option value="kucoin">KuCoin</option>
+          </select>
+        </div>
+        
+        <h3 class="settings-section-title">Set Exchange Rates</h3>
+        
+        <div class="form-group">
+          <label for="irr-usd-rate">IRR/USD Rate:</label>
+          <input type="number" id="irr-usd-rate" placeholder="520000">
+        </div>
+        
+        <div class="form-group">
+          <label for="btc-usd-rate">Bitcoin Price (USD):</label>
+          <input type="number" id="btc-usd-rate" placeholder="60000">
+        </div>
+        
+        <div class="form-group">
+          <label for="eth-usd-rate">Ethereum Price (USD):</label>
+          <input type="number" id="eth-usd-rate" placeholder="3000">
+        </div>
+        
+      </form>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
